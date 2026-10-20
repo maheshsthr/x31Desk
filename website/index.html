@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>x31Desk – Notes, tasks and code snippets in one Windows workspace</title>
+<meta name="description" content="x31Desk is a local-first Windows desktop workspace for notes, tasks and code snippets.">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;family=Space+Grotesk:wght@700&amp;display=swap" rel="stylesheet">
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap');
+:root{--bg:#f8f9fd;--paper:#fff;--ink:#20243b;--mut:#69728b;--blue:#5267df;--violet:#8b79d6;--pale:#eef0ff;--orchid:#f4edff;--line:#e3e7f1;--radius:18px;--pad:clamp(20px,4.2vw,60px);--body:'DM Sans',system-ui,sans-serif;--head:Manrope,system-ui,sans-serif;--mono:'JetBrains Mono',monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.65 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}svg{display:block;max-width:100%}a{color:inherit}button{font:inherit}button,a{-webkit-tap-highlight-color:transparent}:focus-visible{outline:3px solid #7585ee;outline-offset:4px}h1,h2,h3,p{margin:0}h1,h2,h3{font-family:var(--head);letter-spacing:-.055em;line-height:1.13}h1{font-size:clamp(2.7rem,6.3vw,5.8rem);font-weight:800}h2{font-size:clamp(2.1rem,4vw,3.5rem);font-weight:800}h3{font-size:clamp(1.17rem,1.6vw,1.48rem);font-weight:700;letter-spacing:-.035em}.wrap{max-width:1210px;margin:auto;padding-inline:var(--pad)}.lbl{font:600 .72rem/1.5 var(--mono);letter-spacing:.055em;text-transform:uppercase}.mut{color:var(--mut)}.lead{font-size:clamp(1.02rem,1.5vw,1.2rem);line-height:1.8;color:var(--mut)}.sec{padding:clamp(78px,9vw,130px) 0}.sec-head{display:grid;gap:14px;max-width:740px;margin-bottom:44px}.sec-head>.lbl{color:var(--blue)}.alt{background:#f0f2fa;border-block:1px solid var(--line)}
+.site{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line)}.bar{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:22px}.brand{display:inline-flex;align-items:center;gap:13px;font:800 1.32rem var(--head);letter-spacing:-.05em;text-decoration:none;white-space:nowrap}.logo{position:relative;width:23px;height:23px;background:var(--blue);border-radius:7px;display:inline-block;flex:none;margin-right:5px}.logo:after{content:'';position:absolute;right:-7px;bottom:-6px;width:12px;height:12px;border-radius:4px;background:#a698f2;border:2px solid #fff}.nav{display:flex;align-items:center;gap:32px}.nav a{text-decoration:none;font-size:.9rem;font-weight:600;color:#626b82}.nav a:hover{color:var(--blue)}.bar-end{display:flex;align-items:center;gap:12px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:12px 23px;border:1px solid var(--blue);border-radius:11px;background:var(--blue);color:#fff;text-decoration:none;font-weight:700;font-size:.92rem;line-height:1.3;box-shadow:0 6px 15px rgba(82,103,223,.14);transition:background .16s,transform .16s,box-shadow .16s}.btn:hover{background:#4357c7;transform:translateY(-1px);box-shadow:0 8px 20px rgba(82,103,223,.2)}.btn.sm{min-height:40px;padding:9px 16px;font-size:.84rem}.btn[aria-disabled=true]{background:#e9ebf4;color:#81889d;border-color:#e2e5ef;box-shadow:none;cursor:not-allowed;transform:none}.plain{font-weight:700;text-decoration:none;color:var(--blue)}.plain:hover{text-decoration:underline;text-underline-offset:5px}.menu-btn{display:none;width:42px;height:42px;border:1px solid var(--line);background:white;border-radius:10px;align-items:center;justify-content:center;flex-direction:column;gap:5px;cursor:pointer}.menu-btn span{width:18px;height:2px;background:var(--ink);border-radius:2px}
+.hero{padding:clamp(68px,9vw,128px) 0 clamp(76px,8vw,112px);background:radial-gradient(ellipse 70% 35% at 50% 100%,#ebedff 0%,transparent 100%)}.hero-grid{display:flex;flex-direction:column;align-items:center;gap:clamp(48px,6vw,78px)}.hero-copy{text-align:center;display:flex;flex-direction:column;align-items:center;gap:24px;max-width:850px}.hero-copy h1{max-width:850px}.hero-copy .lead{max-width:640px}.tag{padding:8px 14px;border:1px solid #dfe2fb;background:#f0f1ff;color:#5262bb;border-radius:100px}.cta-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:20px}.meta{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 34px;margin:4px 0 0;padding-top:17px;border-top:1px solid var(--line)}.meta div{display:flex;align-items:baseline;gap:9px}.meta dt{color:var(--mut)}.meta dd{margin:0;color:var(--ink);font-weight:600}.hero-art{width:min(100%,940px);position:relative}.win{background:var(--paper);border:1px solid #d9dfee;border-radius:16px;overflow:hidden;box-shadow:0 30px 75px rgba(37,49,95,.12),0 4px 14px rgba(37,49,95,.04)}.win-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;background:#f8f9fd;border-bottom:1px solid var(--line)}.win-bar i{width:9px;height:9px;border-radius:50%;background:#d8ddeb}.win-bar i:first-child{background:#f5b5b3}.win-bar i:nth-child(2){background:#eed5a0}.win-bar i:nth-child(3){background:#a9dac3}.win-bar .lbl{margin-left:12px;color:#8a92a7}.win-body{display:grid;grid-template-columns:65px minmax(0,1fr)}.side{background:#f8f9ff;border-right:1px solid var(--line);padding:18px 12px;display:grid;align-content:start;justify-items:center;gap:10px}.side b{width:38px;height:38px;display:grid;place-items:center;font:700 .78rem var(--mono);border-radius:10px;color:#6e7794}.side b.on{background:#e5e9ff;color:var(--blue)}.main2{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:20px;min-width:0}.pane{min-width:0;padding:16px;border:1px solid var(--line);border-radius:11px;display:grid;gap:9px;align-content:start;font-size:.85rem}.pane .lbl{color:var(--mut)}.row{padding:7px 10px;display:flex;align-items:center;gap:9px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-radius:7px}.row.on{background:#eef0ff;color:#465bd0}.ck{display:inline-block;flex:none;width:15px;height:15px;border:1.5px solid #9da5ba;border-radius:4px}.ck.done{background:var(--blue);border-color:var(--blue)}.code{margin:0;min-width:0;overflow:auto;background:#222841;color:#d4dcf7;padding:18px 20px;border-radius:10px;font:500 .79rem/1.7 var(--mono)}.code .c{color:#8d9abb}.code .k{color:#b5a4ff}.code .f{color:#93b6ff}.code .s{color:#f4c78b}.wide{grid-column:1/-1}.note{position:absolute;padding:8px 13px;border:1px solid #e1e5f1;border-radius:9px;background:white;box-shadow:0 8px 22px rgba(40,52,98,.07);font-size:.66rem}.n1{right:-18px;top:24px}.n2{left:-22px;bottom:28px;background:#f0ebff}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.card{display:flex;flex-direction:column;align-items:flex-start;gap:18px;min-height:315px;padding:30px;border:1px solid var(--line);border-radius:17px;background:#fff;box-shadow:0 5px 24px rgba(41,53,95,.035)}.card .lbl{color:var(--blue)}.card svg{margin:5px 0}.card p:last-child{color:var(--mut);font-size:.95rem;line-height:1.75}.c2{background:#f8f7ff}.c3{background:#f0f2ff}.c3 h3,.c3 p:last-child{color:var(--ink)}.c3 .lbl{color:var(--blue)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}.tabs button{border:1px solid #dce0ed;border-radius:9px;background:white;color:#6b748b;padding:10px 20px;min-height:44px;font-weight:700;cursor:pointer}.tabs button:hover{background:#f7f8ff}.tabs button[aria-selected=true]{background:var(--blue);color:white;border-color:var(--blue)}.big .win-body{grid-template-columns:200px minmax(0,1fr)}.big .side{justify-items:stretch;padding:24px 16px}.big .side .lbl{color:var(--mut);padding:0 10px;margin-bottom:5px}.stage{min-height:340px;padding:clamp(22px,4vw,42px);min-width:0}.tp{display:grid;gap:15px;align-content:start}.tp[hidden]{display:none}.tp.dark{background:#222841;color:white;margin:calc(-1 * clamp(22px,4vw,42px));padding:clamp(22px,4vw,42px);min-height:340px}.tp.dark .code{padding:0}.doc-t{font-size:clamp(1.7rem,3vw,2.5rem)}.hl{background:#f0ebff;color:#514b86;padding:10px 14px;border-radius:8px;justify-self:start}.trow{display:flex;align-items:center;gap:12px;border:1px solid var(--line);padding:13px 16px;border-radius:10px}.chip{margin-left:auto;border-radius:6px;padding:3px 9px;background:#e9ecff;color:#4f5db2}.chip.orchid{background:#ede5ff;color:#4f408c;margin:0}.caps{display:flex;flex-wrap:wrap;gap:12px 30px;padding:0;margin:24px 0 0;list-style:none;color:var(--mut);font-size:.88rem}.caps .lbl{background:#e3e8fb;color:#5062ba;border-radius:5px;padding:3px 7px;margin-right:5px}
+.local{display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:clamp(40px,7vw,100px)}.local h2{margin:15px 0 23px}.tree{display:grid;padding:30px 36px;border:1px solid var(--line);border-radius:16px;background:white;box-shadow:0 10px 40px rgba(39,51,95,.045);font:500 .95rem/2.15 var(--mono);overflow:auto}.tree .lbl{margin-bottom:14px;color:var(--mut)}
+.dl{display:grid;justify-items:center;text-align:center;gap:24px;padding:clamp(44px,6vw,80px) 24px;border:1px solid #e1e5fb;border-radius:24px;background:#edf0ff}.dl .lbl:first-child{color:var(--blue)}.dl h2{max-width:680px}.dl .meta{width:100%;justify-content:center;border-color:#d9dff6}.dl-note{color:var(--mut);font-size:.87rem}.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,7vw,90px)}.faq-grid .sec-head{margin:0}.qa{border-bottom:1px solid #d9dfed}.qa h3{font:inherit;letter-spacing:normal}.qa button{display:flex;justify-content:space-between;align-items:center;gap:15px;width:100%;padding:21px 0;border:0;background:transparent;color:var(--ink);text-align:left;font-weight:700;cursor:pointer}.qa button:after{content:'+';font-size:1.45rem;color:var(--blue);font-weight:400}.qa button[aria-expanded=true]:after{content:'−'}.ans{padding:0 30px 22px 0;color:var(--mut);font-size:.95rem}.ans[hidden]{display:none}.foot{background:#252b45;color:white;padding:56px 0 25px}.foot-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px}.foot-grid>div{max-width:330px}.foot-grid p{margin-top:14px;color:#bbc3dd}.foot nav{display:flex;flex-wrap:wrap;align-content:start;gap:14px 25px}.foot nav a{font-size:.9rem;text-decoration:none;color:#dce2f5}.foot nav a:hover{text-decoration:underline}.copy{margin-top:48px;padding-top:20px;border-top:1px solid #434b67;color:#b4bfdc}.foot .logo:after{border-color:#252b45}
+/* No entrance or scroll-triggered animations. */.js .reveal,.reveal{opacity:1!important;transform:none!important;transition:none!important}.float,.hero-copy,.hero-art{animation:none!important}
+@media(max-width:1000px){.cards{gap:12px}.card{padding:23px}.hero{padding-top:75px}.faq-grid{grid-template-columns:1fr;gap:28px}.faq-grid .sec-head{margin-bottom:0}}
+@media(max-width:767px){.bar{min-height:66px}.menu-btn{display:flex}.nav{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border-bottom:1px solid var(--line);padding:10px var(--pad) 18px;flex-direction:column;align-items:stretch;gap:0;box-shadow:0 15px 20px rgba(20,30,65,.07)}.nav.open{display:flex}.nav a{padding:13px 8px}.hide-s{display:none}.hero{padding:60px 0 75px}.hero-grid{gap:44px}.hero-copy{gap:20px}.hero-copy h1{font-size:clamp(2.5rem,10vw,4.4rem)}.hero-copy .lead{font-size:1rem}.meta{gap:8px 18px}.meta div{font-size:.7rem}.cards{grid-template-columns:1fr}.card{min-height:0;gap:12px;padding:25px}.card svg{margin:0}.sec{padding:75px 0}.sec-head{margin-bottom:28px}.win-body{grid-template-columns:44px minmax(0,1fr)}.side{padding:10px 5px}.side b{width:32px;height:32px}.main2{padding:10px;gap:8px}.pane{padding:10px;font-size:.72rem}.code{font-size:.65rem;padding:12px}.note{display:none}.big .win-body{grid-template-columns:1fr}.big .side{display:none}.stage{min-height:300px}.tp.dark{min-height:300px}.local{grid-template-columns:1fr;gap:30px}.dl{border-radius:17px}.foot-grid{flex-direction:column}.caps{gap:12px}}
+@media(max-width:420px){.brand{font-size:1.17rem}.bar{gap:8px}.bar-end{gap:8px}.btn.sm{padding:9px 12px}.cta-row{flex-direction:column;width:100%}.hero-copy .cta-row .btn{width:100%}.main2{grid-template-columns:1fr}.pane{min-height:0}.hero-art .code{font-size:.61rem}.meta{justify-content:center}.trow{font-size:.8rem;padding:11px}.chip{font-size:.65rem}.tree{padding:20px;font-size:.77rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
+
+</style>
+<script>
+/* ==========================================================
+   x31Desk – site configuration
+   Edit ONLY this object to publish a release.
+   ========================================================== */
+const X31_CONFIG = {
+  // >>> PUT THE REAL .exe INSTALLER URL HERE <<<
+  // While empty, every download button is disabled.
+  installerUrl: "",
+  version: "0.0.0",             // e.g. "1.0.0"
+  fileSize: "– MB",             // e.g. "85 MB"
+  releaseDate: "YYYY-MM-DD",    // e.g. "2026-11-01"
+  platform: "Windows",          // e.g. "Windows 10 / 11 (64-bit)"
+  releaseNotesUrl: "https://github.com/maheshsthr/x31Desk/releases/latest",          // empty = link disabled
+  githubUrl: "https://github.com/maheshsthr/x31Desk"                 // empty = link disabled
+};
+
+(function () {
+  "use strict";
+  document.documentElement.classList.add("js");
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+
+  function applyConfig() {
+    $$("[data-cfg]").forEach((el) => {
+      const v = X31_CONFIG[el.dataset.cfg];
+      if (v) el.textContent = v;
+    });
+    const year = $("[data-year]");
+    if (year) year.textContent = new Date().getFullYear();
+    [["[data-release-notes]", "releaseNotesUrl"], ["[data-github]", "githubUrl"]].forEach(([sel, key]) => {
+      $$(sel).forEach((a) => {
+        const url = (X31_CONFIG[key] || "").trim();
+        if (url) { a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer"; }
+        else { a.setAttribute("aria-disabled", "true"); a.addEventListener("click", (e) => e.preventDefault()); a.title = "Not available yet"; }
+      });
+    });
+  }
+
+  function initDownload() {
+    const url = (X31_CONFIG.installerUrl || "").trim();
+    const note = $("[data-download-note style="display:none"]");
+    $$("[data-download]").forEach((btn) => {
+      if (url && /^https:\/\//i.test(url)) {
+        btn.href = url;
+        btn.setAttribute("download", "");
+      } else {
+        btn.setAttribute("aria-disabled", "true");
+        btn.title = "Installer not published yet";
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (note) note.textContent = "Installer not published yet. Check back soon.";
+        });
+      }
+    });
+    if (!url && note) note.textContent = "Installer not published yet.";
+  }
+
+  function initMenu() {
+    const btn = $(".menu-btn"), nav = $("#menu");
+    if (!btn || !nav) return;
+    const set = (open) => {
+      btn.setAttribute("aria-expanded", String(open));
+      btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      nav.classList.toggle("open", open);
+    };
+    btn.addEventListener("click", () => set(btn.getAttribute("aria-expanded") !== "true"));
+    nav.addEventListener("click", (e) => { if (e.target.closest("a")) set(false); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") { set(false); btn.focus(); } });
+    window.matchMedia("(min-width:768px)").addEventListener("change", () => set(false));
+  }
+
+  function initFaq() {
+    $$(".qa").forEach((qa) => {
+      const btn = $("button", qa), panel = $(".ans", qa);
+      panel.hidden = true; // content stays visible when JS is unavailable
+      btn.addEventListener("click", () => {
+        const open = btn.getAttribute("aria-expanded") === "true";
+        btn.setAttribute("aria-expanded", String(!open));
+        panel.hidden = open;
+      });
+    });
+  }
+
+  function initTabs() {
+    const tabs = $$('[role="tab"]');
+    const select = (tab, focus) => {
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.setAttribute("aria-selected", String(on));
+        t.tabIndex = on ? 0 : -1;
+        $("#" + t.getAttribute("aria-controls")).hidden = !on;
+      });
+      if (focus) tab.focus();
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener("click", () => select(t));
+      t.addEventListener("keydown", (e) => {
+        const k = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+        if (k) { e.preventDefault(); select(tabs[(i + k + tabs.length) % tabs.length], true); }
+        if (e.key === "Home") { e.preventDefault(); select(tabs[0], true); }
+        if (e.key === "End") { e.preventDefault(); select(tabs[tabs.length - 1], true); }
+      });
+    });
+  }
+
+  function initReveal() {
+    const items = $$(".reveal");
+    if (!("IntersectionObserver" in window)) { items.forEach((el) => el.classList.add("in")); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    items.forEach((el) => io.observe(el));
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    applyConfig(); initDownload(); initMenu(); initFaq(); initTabs();
+  });
+})();
+
+</script>
+</head>
+<body>
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="#top" aria-label="x31Desk home"><span class="logo" aria-hidden="true"></span>x31Desk</a>
+    <nav id="menu" class="nav" aria-label="Main">
+      <a href="#features">Features</a><a href="#preview">Preview</a><a href="#faq">FAQ</a>
+    </nav>
+    <div class="bar-end">
+      <a class="btn sm" href="https://github.com/maheshsthr/x31Desk/releases/latest" target="_blank" rel="noopener noreferrer" data-download>Download<span class="hide-s">&nbsp;for Windows</span></a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="lbl tag">Desktop workspace / Windows</p>
+      <h1>Less switching.<br>More making.</h1>
+      <p class="lead">Notes, tasks and code snippets live together in one focused desktop workspace, so you can stay with the work instead of hunting for the right app.</p>
+      <div class="cta-row">
+        <a class="btn" href="https://github.com/maheshsthr/x31Desk/releases/latest" target="_blank" rel="noopener noreferrer" data-download>Download for Windows</a>
+        <a class="plain" href="#preview">Explore the workspace</a>
+      </div>
+      <dl class="meta lbl">
+        <div><dt>Platform</dt><dd>Windows</dd></div>
+        <div><dt>Version</dt><dd data-cfg="version">0.0.0</dd></div>
+        <div><dt>Installer</dt><dd data-cfg="fileSize">– MB</dd></div>
+      </dl>
+    </div>
+    <div class="hero-art">
+      <div class="win" role="img" aria-label="Illustrative preview of the x31Desk interface: sidebar, notes list, task rows and a code editor">
+        <div class="win-bar"><i></i><i></i><i></i><span class="lbl">x31Desk · Workspace</span></div>
+        <div class="win-body">
+          <div class="side"><b class="on">N</b><b>T</b><b>{}</b></div>
+          <div class="main2">
+            <div class="pane"><span class="lbl">Notes</span><p class="row on">Sprint retro</p><p class="row">API ideas</p><p class="row">Reading list</p></div>
+            <div class="pane"><span class="lbl">Today</span><p class="row"><u class="ck done"></u>Review PR</p><p class="row"><u class="ck"></u>Write release notes</p><p class="row"><u class="ck"></u>Plan week</p></div>
+            <pre class="code wide"><span class="c">// debounce.js</span>
+<span class="k">export function</span> <span class="f">debounce</span>(fn, ms) {
+  <span class="k">let</span> t;
+  <span class="k">return</span> (...a) =&gt; {
+    clearTimeout(t);
+    t = setTimeout(() =&gt; fn(...a), ms);
+  };
+}</pre>
+          </div>
+        </div>
+      </div>
+      <span class="note n1 float lbl">Illustrative preview</span>
+      <span class="note n2 float lbl">Syntax-aware</span>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal"><p class="lbl">01 / Features</p><h2>Three tools. One quiet desk.</h2></div>
+    <div class="cards">
+      <article class="card c1 reveal">
+        <p class="lbl">01 / Notes</p>
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#171923" stroke-width="2.5" aria-hidden="true"><rect x="8" y="5" width="28" height="34" fill="#fff"/><path d="M14 15h16M14 22h16M14 29h9"/></svg>
+        <h3>Capture thoughts without friction.</h3>
+        <p>Write, organize and come back to your notes in a clean editor built to stay out of the way.</p>
+      </article>
+      <article class="card c2 reveal">
+        <p class="lbl">02 / Tasks</p>
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#171923" stroke-width="2.5" aria-hidden="true"><rect x="6" y="8" width="10" height="10" fill="#fff"/><rect x="6" y="26" width="10" height="10" fill="#fff"/><path d="M22 13h16M22 31h16M8 13l2 2 4-5"/></svg>
+        <h3>Keep daily priorities visible.</h3>
+        <p>See what needs doing today next to the notes and code that belong to it.</p>
+      </article>
+      <article class="card c3 reveal">
+        <p class="lbl">03 / Code snippets</p>
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#8B5CF6" stroke-width="2.5" aria-hidden="true"><path d="M16 12L6 22l10 10M28 12l10 10-10 10M25 8l-6 28"/></svg>
+        <h3>Save and reuse code, highlighted by language.</h3>
+        <p>Keep the snippets you reach for often, with language-aware syntax highlighting.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="preview" class="sec alt">
+  <div class="wrap">
+    <div class="sec-head reveal"><p class="lbl">02 / Preview</p><h2>One window, three working areas.</h2><p class="mut">An illustrative interface built in HTML and CSS, not a screenshot of the live app.</p></div>
+    <div class="tabs" role="tablist" aria-label="Preview area">
+      <button type="button" role="tab" id="tab-notes" aria-selected="true" aria-controls="panel-notes">Notes</button>
+      <button type="button" role="tab" id="tab-tasks" aria-selected="false" aria-controls="panel-tasks" tabindex="-1">Tasks</button>
+      <button type="button" role="tab" id="tab-snippets" aria-selected="false" aria-controls="panel-snippets" tabindex="-1">Snippets</button>
+    </div>
+    <div class="win big reveal">
+      <div class="win-bar"><i></i><i></i><i></i><span class="lbl">x31Desk · Workspace</span></div>
+      <div class="win-body">
+        <div class="side wide-side">
+          <p class="lbl">Library</p>
+          <p class="row on">All notes</p><p class="row">Projects</p><p class="row">Today</p><p class="row">Snippets</p>
+        </div>
+        <div class="stage">
+          <div role="tabpanel" id="panel-notes" aria-labelledby="tab-notes" class="tp">
+            <h3 class="doc-t">Sprint retro</h3>
+            <p class="lbl mut">Edited today · Notes</p>
+            <p>What went well: shipping smaller changes more often.</p>
+            <p>To improve: write decisions down while they are fresh.</p>
+            <p class="hl">Follow up: turn the open questions into tasks.</p>
+          </div>
+          <div role="tabpanel" id="panel-tasks" aria-labelledby="tab-tasks" class="tp" hidden>
+            <h3 class="doc-t">Today</h3>
+            <p class="trow"><u class="ck done"></u>Review pull request<span class="chip lbl">High</span></p>
+            <p class="trow"><u class="ck"></u>Write release notes<span class="chip lbl">Medium</span></p>
+            <p class="trow"><u class="ck"></u>Plan next week<span class="chip lbl">Low</span></p>
+          </div>
+          <div role="tabpanel" id="panel-snippets" aria-labelledby="tab-snippets" class="tp dark" hidden>
+            <p class="lbl"><span class="chip orchid">JavaScript</span> debounce.js</p>
+<pre class="code"><span class="c">// Wait until calls stop for `ms`</span>
+<span class="k">export function</span> <span class="f">debounce</span>(fn, ms = <span class="s">250</span>) {
+  <span class="k">let</span> t;
+  <span class="k">return</span> (...args) =&gt; {
+    clearTimeout(t);
+    t = setTimeout(() =&gt; fn(...args), ms);
+  };
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="caps">
+      <li><span class="lbl">A</span> Sidebar for moving between areas</li>
+      <li><span class="lbl">B</span> Editor for notes and tasks</li>
+      <li><span class="lbl">C</span> Dark code editor for snippets</li>
+    </ul>
+  </div>
+</section>
+
+<section id="local" class="sec">
+  <div class="wrap local">
+    <div class="reveal">
+      <p class="lbl">03 / Local-first</p>
+      <h2>Your desk lives on your desktop.</h2>
+      <p class="lead">x31Desk is a desktop app designed around local-first use: your workspace is kept on your own computer instead of living only in a browser tab. Check the release notes for storage details of each version.</p>
+    </div>
+    <div class="tree reveal" role="img" aria-label="Illustrative folder layout of a local workspace">
+<span class="lbl mut">Illustrative layout</span>
+<span>x31Desk/</span>
+<span>├─ notes/</span>
+<span>├─ tasks/</span>
+<span>└─ snippets/</span>
+    </div>
+  </div>
+</section>
+
+<section id="download" class="sec">
+  <div class="wrap">
+    <div class="dl reveal">
+      <p class="lbl">04 / Download</p>
+      <h2>Make space for focused work.</h2>
+      <div class="cta-row">
+        <a class="btn" href="https://github.com/maheshsthr/x31Desk/releases/latest" target="_blank" rel="noopener noreferrer" data-download>Download x31Desk for Windows</a>
+      </div>
+      <p class="lbl dl-note" data-download-note style="display:none" role="status"></p>
+      <dl class="meta lbl">
+        <div><dt>Platform</dt><dd data-cfg="platform">Windows</dd></div>
+        <div><dt>Version</dt><dd data-cfg="version">0.0.0</dd></div>
+        <div><dt>File size</dt><dd data-cfg="fileSize">– MB</dd></div>
+        <div><dt>Released</dt><dd data-cfg="releaseDate">YYYY-MM-DD</dd></div>
+      </dl>
+      <a class="plain" href="#" data-release-notes>Release notes</a>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="sec alt">
+  <div class="wrap faq-grid">
+    <div class="sec-head reveal"><p class="lbl">05 / FAQ</p><h2>Questions, answered carefully.</h2></div>
+    <div class="faq">
+      <div class="qa"><h3><button type="button" aria-expanded="false" aria-controls="a1" id="q1">What is x31Desk?</button></h3><div id="a1" role="region" aria-labelledby="q1" class="ans"><p>x31Desk is a Windows desktop workspace that brings notes, tasks and code snippets together in one focused app, with light and dark themes.</p></div></div>
+      <div class="qa"><h3><button type="button" aria-expanded="false" aria-controls="a2" id="q2">Which operating systems are supported?</button></h3><div id="a2" role="region" aria-labelledby="q2" class="ans"><p>x31Desk is built for Windows. Other platforms have not been announced. See the release notes for the specific Windows versions covered.</p></div></div>
+      <div class="qa"><h3><button type="button" aria-expanded="false" aria-controls="a3" id="q3">Where does my data live?</button></h3><div id="a3" role="region" aria-labelledby="q3" class="ans"><p>x31Desk is designed as a local-first desktop app, so your workspace is stored on your own computer. Confirm exact storage details in the release notes for your version, and keep your own backups.</p></div></div>
+      <div class="qa"><h3><button type="button" aria-expanded="false" aria-controls="a4" id="q4">How do I install the Windows version?</button></h3><div id="a4" role="region" aria-labelledby="q4" class="ans"><p>Download the .exe installer from the download section, open it and follow the on-screen steps. The download button stays disabled until an installer is published.</p></div></div>
+      <div class="qa"><h3><button type="button" aria-expanded="false" aria-controls="a5" id="q5">How can I update to a newer version?</button></h3><div id="a5" role="region" aria-labelledby="q5" class="ans"><p>Download the newer installer from this page and run it. The release notes describe what changed and any update guidance.</p></div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div><a class="brand" href="#top"><span class="logo" aria-hidden="true"></span>x31Desk</a><p class="mut">A focused desktop workspace for notes, tasks and code snippets.</p></div>
+    <nav aria-label="Footer"><a href="#features">Features</a><a href="#preview">Preview</a><a href="#download">Download</a><a href="#faq">FAQ</a><a href="#" data-github>GitHub</a></nav>
+  </div>
+  <div class="wrap"><p class="lbl mut copy">© <span data-year>2026</span> x31Desk</p></div>
+</footer>
+</body>
+</html>
