@@ -1,0 +1,61 @@
+# x31Desk — packaging (electron-builder)
+# ---------------------------------------------------------------------------
+# The app is two pre-built bundles: the Vite renderer in `dist/` and the
+# bundled Electron shell in `electron/dist/`. The shell imports only `electron`
+# and `node:` builtins, and the renderer is bundled by Vite, so no
+# `node_modules` needs to ship — the package is just those two folders plus this
+# `package.json`. `npm run dist:win` builds both halves and then wraps them.
+appId: com.x31desk.app
+productName: x31Desk
+copyright: Copyright © 2026 x31Desk
+
+directories:
+  output: release
+  buildResources: build
+
+# Only the built output is packaged. `package.json` is added automatically and
+# provides `main: electron/dist/main.mjs`. `node_modules` is excluded on purpose:
+# the main process imports only `electron` and `node:` builtins, and the renderer
+# is already bundled by Vite, so nothing from it is needed at runtime.
+files:
+  - dist/**/*
+  - electron/dist/**/*
+  - "!**/node_modules/**"
+  - "!**/*.map"
+
+# No native modules, so no rebuild step is needed and it is skipped for speed.
+npmRebuild: false
+buildDependenciesFromSource: false
+
+# The window icon is loaded at runtime (see `resolveAppIcon` in electron/main.ts).
+# `build/` is build resources, not part of `files`, so the `.ico` is copied next
+# to the archive where the packaged app can read it.
+extraResources:
+  - from: build/icon.ico
+    to: icon.ico
+
+asar: true
+
+win:
+  # The official x31Desk icon, used for the executable, the taskbar and the
+  # window. Generated from the supplied logo by `scripts/make-icon.ps1`.
+  icon: build/icon.ico
+  target:
+    - target: nsis
+      arch:
+        - x64
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  # The installer, the uninstaller and the installer page header all carry the
+  # same icon, so the whole install reads as x31Desk rather than a generic setup.
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+  installerHeaderIcon: build/icon.ico
+  # The workspace lives in the user's application-data directory. An uninstall
+  # must not silently delete the user's notes, tasks and snippets, so it is kept.
+  deleteAppDataOnUninstall: false
