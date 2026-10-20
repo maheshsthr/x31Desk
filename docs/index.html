@@ -68,7 +68,7 @@ const X31_CONFIG = {
 
   function initDownload() {
     const url = (X31_CONFIG.installerUrl || "").trim();
-    const note = $("[data-download-note style="display:none"]");
+    const note = $("[data-download-note]");
     $$("[data-download]").forEach((btn) => {
       if (url && /^https:\/\//i.test(url)) {
         btn.href = url;
