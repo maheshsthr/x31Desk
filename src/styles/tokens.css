@@ -1,0 +1,179 @@
+/**
+ * x31Desk design tokens
+ * ---------------------------------------------------------------------------
+ * Single source of truth for the visual language of the application.
+ *
+ * These are plain CSS custom properties on purpose: they are consumable from
+ * any CSS, any component, and can be re-mapped at runtime (for example when the
+ * theme switches), which matters for a desktop app that must support theming,
+ * high-contrast and Windows-flavoured native chrome later on.
+ *
+ * Tailwind consumes these tokens through `src/styles/theme.css`.
+ * The light theme is the default; the dark theme is a coordinated override.
+ */
+
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+
+  /* ---- Surfaces ---------------------------------------------------------- */
+  --x31-color-canvas: #f2f6fa; /* application background */
+  --x31-color-sidebar: #e7edf4; /* navigation / rail background */
+  --x31-color-surface: #ffffff; /* content cards, panels, dialogs */
+
+  /* ---- Text -------------------------------------------------------------- */
+  --x31-color-text: #202e40; /* primary text */
+  --x31-color-text-muted: #718096; /* secondary text, metadata, captions */
+
+  /* ---- Accent ------------------------------------------------------------ */
+  --x31-color-accent: #2563eb; /* primary accent blue */
+  --x31-color-accent-strong: #1d4ed8; /* hover / pressed accent */
+  --x31-color-accent-soft: #dbeafe; /* tinted accent backgrounds */
+  --x31-color-on-accent: #ffffff; /* text/icons placed on the accent */
+
+  /* ---- Lines and focus --------------------------------------------------- */
+  --x31-color-border: #d9e2ec; /* borders, dividers, input outlines */
+  --x31-color-focus-ring: #3978b8;
+
+  /* ---- Interactive surfaces ---------------------------------------------- */
+  /* Hover tint for items sitting on the sidebar surface. */
+  --x31-color-nav-hover: #dce5ef;
+
+  /* ---- Feedback ---------------------------------------------------------- */
+  --x31-color-success: #2f8f5b;
+  --x31-color-success-soft: #e2f2e9;
+
+  /* Destructive actions (delete), failed saves. Mirrors the accent family. */
+  --x31-color-danger: #c04a44;
+  --x31-color-danger-strong: #a63c37; /* hover / pressed danger */
+  --x31-color-danger-soft: #f7e7e5; /* tinted danger backgrounds */
+  --x31-color-on-danger: #ffffff; /* text/icons placed on the danger colour */
+
+  /* Status tints. Mirrors the success family; the medium task priority uses
+     this rather than a hardcoded amber. */
+  --x31-color-warning: #b06b1e;
+  --x31-color-warning-soft: #fbeed9;
+
+  /* ---- Overlays ---------------------------------------------------------- */
+  --x31-color-scrim: rgb(20 30 42 / 0.45); /* modal backdrop */
+
+  /* ---- Radii ------------------------------------------------------------- */
+  --x31-radius-xs: 0.25rem;
+  --x31-radius-sm: 0.375rem;
+  --x31-radius-md: 0.625rem;
+  --x31-radius-lg: 1rem;
+  --x31-radius-full: 9999px;
+
+  /* ---- Elevation --------------------------------------------------------- */
+  --x31-shadow-card: 0 1px 2px rgb(32 46 64 / 0.04), 0 8px 24px -12px rgb(32 46 64 / 0.14);
+  --x31-shadow-floating: 0 12px 32px -12px rgb(32 46 64 / 0.24);
+
+  /* ---- Motion ------------------------------------------------------------ */
+  --x31-duration-fast: 120ms;
+  --x31-duration-base: 200ms;
+  --x31-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* ---- Layout ------------------------------------------------------------ */
+  /* Shell metrics, tuned for a 1366×768 laptop screen. Held in `rem` so they
+     stay proportional to the type rather than drifting to a fixed pixel size
+     when the reader's own font-size preference differs. */
+  --x31-sidebar-width: 14.75rem;
+  --x31-topbar-height: 3rem;
+  /* The custom title bar sits above the top bar; compact VS Code-style
+     chrome. */
+  --x31-titlebar-height: 2.125rem;
+  --x31-content-max-width: 64rem;
+}
+
+/**
+ * Dark theme — coordinated counterpart of the Nordic Blue light theme.
+ * Selected from the Settings page (Light / Dark / System) and applied through
+ * `settingsStore`, which writes the `data-theme` attribute this keys off.
+ */
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  /* ---- Surfaces ---------------------------------------------------------- */
+  --x31-color-canvas: #0e1620;
+  --x31-color-sidebar: #131d28;
+  --x31-color-surface: #1a2531;
+
+  /* ---- Text -------------------------------------------------------------- */
+  --x31-color-text: #e6edf5;
+  --x31-color-text-muted: #94a6bc;
+
+  /* ---- Accent ------------------------------------------------------------ */
+  --x31-color-accent: #60a5fa;
+  --x31-color-accent-strong: #93c5fd;
+  --x31-color-accent-soft: #1e293b;
+  --x31-color-on-accent: #0b1219;
+
+  /* ---- Lines and focus --------------------------------------------------- */
+  --x31-color-border: #2a3949;
+  --x31-color-focus-ring: #5c9bd6;
+
+  /* ---- Interactive surfaces ---------------------------------------------- */
+  --x31-color-nav-hover: #1b2734;
+
+  /* ---- Feedback ---------------------------------------------------------- */
+  --x31-color-success: #4fd18b;
+  --x31-color-success-soft: #16301f;
+
+  --x31-color-danger: #e8776e;
+  --x31-color-danger-strong: #f0928a;
+  --x31-color-danger-soft: #3a211f;
+  --x31-color-on-danger: #0b1219;
+
+  --x31-color-warning: #e0a458;
+  --x31-color-warning-soft: #33261a;
+
+  /* ---- Overlays ---------------------------------------------------------- */
+  --x31-color-scrim: rgb(0 0 0 / 0.6);
+
+  /* ---- Elevation --------------------------------------------------------- */
+  --x31-shadow-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 28px -14px rgb(0 0 0 / 0.6);
+  --x31-shadow-floating: 0 16px 36px -14px rgb(0 0 0 / 0.7);
+}
+
+/**
+ * Typography tokens
+ * ---------------------------------------------------------------------------
+ * Inter is the interface font, JetBrains Mono is used for code, identifiers
+ * and keyboard shortcuts. Both are self-hosted (see `src/main.tsx`) so the
+ * packaged desktop app never needs a network connection to render text.
+ */
+:root {
+  --x31-font-sans:
+    'Inter Variable', Inter, 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system,
+    'Helvetica Neue', Arial, sans-serif;
+  --x31-font-mono:
+    'JetBrains Mono Variable', 'JetBrains Mono', 'Cascadia Mono', Consolas, 'Courier New', monospace;
+
+  /* Font sizes — a desktop-density scale (base = 14px) */
+  --x31-font-size-2xs: 0.6875rem; /* 11px */
+  --x31-font-size-xs: 0.75rem; /* 12px */
+  --x31-font-size-sm: 0.8125rem; /* 13px */
+  --x31-font-size-base: 0.875rem; /* 14px */
+  --x31-font-size-lg: 1rem; /* 16px */
+  --x31-font-size-xl: 1.125rem; /* 18px */
+  --x31-font-size-2xl: 1.375rem; /* 22px */
+  --x31-font-size-3xl: 1.75rem; /* 28px */
+  --x31-font-size-4xl: 2.25rem; /* 36px */
+
+  /* Font weights */
+  --x31-font-weight-regular: 400;
+  --x31-font-weight-medium: 500;
+  --x31-font-weight-semibold: 600;
+  --x31-font-weight-bold: 700;
+
+  /* Line heights */
+  --x31-line-height-tight: 1.2;
+  --x31-line-height-snug: 1.35;
+  --x31-line-height-normal: 1.5;
+  --x31-line-height-relaxed: 1.65;
+
+  /* Letter spacing */
+  --x31-tracking-tight: -0.011em;
+  --x31-tracking-normal: 0em;
+  --x31-tracking-wide: 0.06em;
+}

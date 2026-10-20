@@ -1,0 +1,96 @@
+/**
+ * Global stylesheet
+ * ---------------------------------------------------------------------------
+ * Entry point for every style in the application. Imported once from
+ * `src/main.tsx`.
+ *
+ * Import order matters: Tailwind first (it declares the `theme`, `base`,
+ * `components` and `utilities` layers), then the design tokens, then the
+ * bridge that exposes the tokens as Tailwind utilities.
+ */
+
+@import 'tailwindcss';
+
+@import './tokens.css';
+@import './theme.css';
+
+@layer base {
+  html {
+    height: 100%;
+    font-family: var(--x31-font-sans);
+    /* The root size is the user's own browser/OS default (100%). Every length in
+       the application is `rem`-based and reads straight from the tokens, with no
+       intermediate multiplier in between. */
+    font-size: 100%;
+    line-height: var(--x31-line-height-normal);
+    letter-spacing: var(--x31-tracking-normal);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    height: 100%;
+    margin: 0;
+    background-color: var(--x31-color-canvas);
+    color: var(--x31-color-text);
+    overscroll-behavior: none;
+  }
+
+  #root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+  }
+
+  code,
+  kbd,
+  pre,
+  samp {
+    font-family: var(--x31-font-mono);
+    font-size: 0.9em;
+  }
+
+  kbd {
+    font-variant-numeric: tabular-nums;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--x31-color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--x31-color-accent-soft);
+    color: var(--x31-color-text);
+  }
+
+  /* Desktop-grade scrollbars (Chromium-based shells such as Electron). */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--x31-color-border) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    border-radius: var(--x31-radius-full);
+    background-clip: content-box;
+    background-color: var(--x31-color-border);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

@@ -1,0 +1,148 @@
+/**
+ * Tailwind theme bridge
+ * ---------------------------------------------------------------------------
+ * Maps the x31Desk design tokens (`src/styles/tokens.css`) onto Tailwind's
+ * theme namespaces so they are available as utilities:
+ *
+ *   bg-canvas  bg-sidebar  bg-surface  text-ink  text-ink-muted
+ *   bg-accent  text-accent  text-on-accent  border-line
+ *   font-sans  font-mono  text-base  rounded-md  shadow-card
+ *
+ * `@theme inline` keeps the generated utilities pointing at the CSS variable
+ * itself instead of the resolved value, which is what makes runtime theme
+ * switching (light/dark) work without re-generating CSS.
+ */
+
+@theme inline {
+  /* ---- Colors ------------------------------------------------------------ */
+  --color-canvas: var(--x31-color-canvas);
+  --color-sidebar: var(--x31-color-sidebar);
+  --color-surface: var(--x31-color-surface);
+
+  --color-ink: var(--x31-color-text);
+  --color-ink-muted: var(--x31-color-text-muted);
+
+  --color-accent: var(--x31-color-accent);
+  --color-accent-strong: var(--x31-color-accent-strong);
+  --color-accent-soft: var(--x31-color-accent-soft);
+  --color-on-accent: var(--x31-color-on-accent);
+
+  --color-line: var(--x31-color-border);
+
+  --color-nav-hover: var(--x31-color-nav-hover);
+
+  --color-success: var(--x31-color-success);
+  --color-success-soft: var(--x31-color-success-soft);
+
+  --color-danger: var(--x31-color-danger);
+  --color-danger-strong: var(--x31-color-danger-strong);
+  --color-danger-soft: var(--x31-color-danger-soft);
+  --color-on-danger: var(--x31-color-on-danger);
+
+  --color-warning: var(--x31-color-warning);
+  --color-warning-soft: var(--x31-color-warning-soft);
+
+  --color-scrim: var(--x31-color-scrim);
+
+  /* ---- Typography -------------------------------------------------------- */
+  --font-sans: var(--x31-font-sans);
+  --font-mono: var(--x31-font-mono);
+
+  --text-2xs: var(--x31-font-size-2xs);
+  --text-2xs--line-height: var(--x31-line-height-normal);
+
+  --text-xs: var(--x31-font-size-xs);
+  --text-xs--line-height: var(--x31-line-height-normal);
+
+  --text-sm: var(--x31-font-size-sm);
+  --text-sm--line-height: var(--x31-line-height-normal);
+
+  --text-base: var(--x31-font-size-base);
+  --text-base--line-height: var(--x31-line-height-normal);
+
+  --text-lg: var(--x31-font-size-lg);
+  --text-lg--line-height: var(--x31-line-height-snug);
+
+  --text-xl: var(--x31-font-size-xl);
+  --text-xl--line-height: var(--x31-line-height-snug);
+
+  --text-2xl: var(--x31-font-size-2xl);
+  --text-2xl--line-height: var(--x31-line-height-snug);
+
+  --text-3xl: var(--x31-font-size-3xl);
+  --text-3xl--line-height: var(--x31-line-height-tight);
+
+  --text-4xl: var(--x31-font-size-4xl);
+  --text-4xl--line-height: var(--x31-line-height-tight);
+
+  --font-weight-regular: var(--x31-font-weight-regular);
+  --font-weight-medium: var(--x31-font-weight-medium);
+  --font-weight-semibold: var(--x31-font-weight-semibold);
+  --font-weight-bold: var(--x31-font-weight-bold);
+
+  --tracking-tight: var(--x31-tracking-tight);
+  --tracking-normal: var(--x31-tracking-normal);
+  --tracking-wide: var(--x31-tracking-wide);
+
+  /* ---- Radii ------------------------------------------------------------- */
+  --radius-xs: var(--x31-radius-xs);
+  --radius-sm: var(--x31-radius-sm);
+  --radius-md: var(--x31-radius-md);
+  --radius-lg: var(--x31-radius-lg);
+
+  /* ---- Elevation --------------------------------------------------------- */
+  --shadow-card: var(--x31-shadow-card);
+  --shadow-floating: var(--x31-shadow-floating);
+
+  /* ---- Motion ------------------------------------------------------------ */
+  --ease-standard: var(--x31-ease-standard);
+}
+
+/**
+ * Layout utilities derived from the shell metrics in tokens.css:
+ * `w-sidebar`, `h-topbar`, `h-titlebar`, `w-content`.
+ */
+@theme inline {
+  --spacing-sidebar: var(--x31-sidebar-width);
+  --spacing-topbar: var(--x31-topbar-height);
+  --spacing-titlebar: var(--x31-titlebar-height);
+  --spacing-content: var(--x31-content-max-width);
+}
+
+/**
+ * Electron window-drag regions for the frameless shell.
+ *
+ * `-webkit-app-region` is not a Tailwind utility and not a standard CSS
+ * property, so it is declared here as a pair of explicit utilities rather than
+ * scattered as inline styles: `app-region-drag` makes an area move the window
+ * (and hand double-clicks to the operating system, which toggles
+ * maximize/restore on the caption hit-test), `app-region-no-drag` keeps a
+ * control inside such an area clickable. Outside Electron the property is
+ * inert, so the web build is unaffected.
+ */
+@utility app-region-drag {
+  -webkit-app-region: drag;
+}
+
+@utility app-region-no-drag {
+  -webkit-app-region: no-drag;
+}
+
+/**
+ * Transient entrance for notifications. Kept to a short fade and a 2px lift;
+ * `prefers-reduced-motion` is handled globally in globals.css.
+ */
+@theme {
+  --animate-toast-in: x31-toast-in var(--x31-duration-base) var(--x31-ease-standard);
+
+  @keyframes x31-toast-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
